@@ -18,7 +18,7 @@ export const Home = () => {
 
   };
 
-  if (store.token && store.token != "" && store.token != undefined) navigate.push("/");
+  if (store.token && store.token != "" && store.token != undefined) navigate("/");
 
   return (
     <div className="text-center mt-5">

@@ -21,7 +21,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+			syncTokenFromSessionStore: () => {
+                   const token = sessionStorage.getItem("token")
+				   console.log("app just loaded, sync session storage token")
+				  if(token && token != "" && token != undefined) setStore({token: token})
 
+			},
+			logout: () => {
+                   sessionStorage.removeItem("token")
+				   console.log("Login out")
+				   setStore({token: null})
+
+			},
              //New action to use Login
 			 login: async (email, password) => {
 			    const postFetch = {
