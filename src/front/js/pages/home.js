@@ -24,7 +24,7 @@ export const Home = () => {
     <div className="text-center mt-5">
       <h1>Hello Rigo!!</h1>
     
-        {(store.token && store.token != "" && store.token != undefined)  ? "You are logged in with this token" + token:
+        {(store.token && store.token != "" && store.token != undefined)  ? "You are logged in with this token" + store.token:
 	<div>
        <input
           type="text"
