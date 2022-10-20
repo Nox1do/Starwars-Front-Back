@@ -28,10 +28,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 			logout: () => {
-                   sessionStorage.removeItem("token")
-				   console.log("Login out")
-				   setStore({token: null})
-
+				sessionStorage.removeItem("token");
+				console.log("Login out")
+				setStore({ token: null });
 			},
              //New action to use Login
 			 login: async (email, password) => {
@@ -47,13 +46,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  };
 				  
 				try{
-					const resp = await fetch("https://3001-nox1do-helloflaskreactb-u7b2vt4y2ir.ws-us71.gitpod.io/api/token",postFetch)
+					const resp = await fetch("https://3001-nox1do-helloflaskreactb-o5cjl8ffhdi.ws-us72.gitpod.io/api/token",postFetch)
 					if (resp.status !== 200) {
 						alert("There has been some error");
 						return false;
 					}
 					const data = await resp.json();
-					  console.log("this came from the backend", data);
+					  console.log("this comes from the end", data);
 					  sessionStorage.setItem("token", data.access_token);
 					  setStore({token: data.access_token})
 					  return true;
@@ -70,13 +69,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                       
 
 			getMessage: async () => {
+				   const store = getStore();
+                   const opts = {
+					headers: {
+						Authorization: "Bearer " + store.token
+					}
+				   }
+
+
 				try{
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
+					 const resp = await fetch("https://3001-nox1do-helloflaskreactb-o5cjl8ffhdi.ws-us72.gitpod.io/hello" + opts)
+					 const data = await resp.json()
+					 setStore({ message: "this comes from the backend" })
 					// don't forget to return something, that is how the async resolves
-					return data;
+					 return data;
 				}catch(error){
 					console.log("Error loading message from backend", error)
 				}
