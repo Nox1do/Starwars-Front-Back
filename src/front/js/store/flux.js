@@ -46,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  };
 				  
 				try{
-					const resp = await fetch("https://3001-nox1do-helloflaskreactb-o5cjl8ffhdi.ws-us72.gitpod.io/api/token",postFetch)
+					const resp = await fetch("https://3001-nox1do-helloflaskreactb-sav6ai6v9bo.ws-us72.gitpod.io/api/token",postFetch)
 					if (resp.status !== 200) {
 						alert("There has been some error");
 						return false;
@@ -68,25 +68,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 			 
                       
 
-			getMessage: async () => {
+			getMessage: () => {
 				   const store = getStore();
                    const opts = {
 					headers: {
 						Authorization: "Bearer " + store.token
 					}
-				   }
+				   };
 
 
-				try{
+				
 					// fetching data from the backend
-					 const resp = await fetch("https://3001-nox1do-helloflaskreactb-o5cjl8ffhdi.ws-us72.gitpod.io/hello" + opts)
-					 const data = await resp.json()
-					 setStore({ message: "this comes from the backend" })
+					fetch("https://3001-nox1do-helloflaskreactb-sav6ai6v9bo.ws-us72.gitpod.io/api/hello", opts)
+					.then(resp => resp.json())
+					.then(data => setStore({ message: data.message}))
 					// don't forget to return something, that is how the async resolves
-					 return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
-				}
+					.catch(error => console.log("Error loading message from backend", error))
+				
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -94,10 +92,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//we have to loop the entire demo array to look for the respective index
 				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				// const demo = store.demo.map((elm, i) => {
+				// 	if (i === index) elm.background = color;
+				// 	return elm;
+				// });
 
 				//reset the global store
 				setStore({ demo: demo });
