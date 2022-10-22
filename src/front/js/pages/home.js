@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import {Card} from "../pages/card.js";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -8,19 +9,32 @@ export const Home = () => {
 	useEffect(() => {
         if (store.token && store.token != "" && store.token != undefined) actions.getMessage();
 	},[store.token])
+
+
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				
-			</p>
-			<div className="alert alert-info">{store.message}</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
-};
+		<> 
+		<h1 className="mx-3" >Characters</h1>
+		<div className=" row flex-row flex-nowrap overflow-scroll mx-2 py-2">    
+		{store.characters.map((item, index) => {
+					return (
+					  <Card key={index} name={item.name} type='players' id={item.uid}/>
+					);
+				  })}
+			  </div>
+		  
+				   
+		
+		  <h1 className="mx-3">Planets</h1>
+		<div className=" row flex-row flex-nowrap overflow-scroll mx-2">
+		{store.planets.map((item, i) => {
+					return (
+					  <Card key={i} name={item.name} type='planets' id={item.uid}/>
+					);
+				  })}
+			  </div>
+		 
+		
+		  
+		  </>
+	  );
+				};

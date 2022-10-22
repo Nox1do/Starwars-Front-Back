@@ -10,7 +10,14 @@ export const Navbar = () => {
     <nav className="navbar navbar-light bg-light">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">React Boilerplate</span>
+        <span className="navbar-brand mx-4 h1">
+          <img className="img-sw"
+            src="https://www.kindpng.com/picc/m/27-270569_transparent-star-wars-logo-png-star-wars-png.png"
+            alt="Bootstrap"
+            width={50}
+            height={34}
+          />
+        </span>
         </Link>
         <div className="ml-auto">
           {!store.token ? (

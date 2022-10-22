@@ -3,6 +3,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			message: null,
+
+            characters: [],
+            planets: [],
+            infoCharacters: [],
+            infoPlanets: [],
+            favoritos: [],   
+
 			demo: [
 				{
 					title: "FIRST",
@@ -18,6 +25,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+
+			verInfoPersonajes: (id) => {
+				fetch("https://www.swapi.tech/api/people/" + id)
+				  .then((resp) => resp.json())
+				  .then((datos) =>
+					setStore({ infoCharacters: datos.result.properties })
+				  )
+				  .catch((error) => console.log(error));
+			  },
+			  verInfoPlanets: (id) => {
+				fetch("https://www.swapi.tech/api/planets/" + id)
+				  .then((resp) => resp.json())
+				  .then((datos) => setStore({ infoPlanets: datos.result.properties }))
+				  .catch((error) => console.log(error));
+			  }, 
+
+			  get_api_info: () => {
+				fetch("https://www.swapi.tech/api/people")
+				  .then((resp) => resp.json())
+				  .then((datos) => setStore({ characters: datos.results }))
+				  .catch((error) => console.log(error));
+		
+				fetch("https://www.swapi.tech/api/planets")
+				  .then((resp) => resp.json())
+				  .then((datos) => setStore({ planets: datos.results }))
+				  .catch((error) => console.log(error));
+					
+			  },
+
+
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
